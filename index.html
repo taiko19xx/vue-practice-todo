@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Vue.js Practice ToDo</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+        <h1>Todo</h1>
+        <div id="app">
+            <input v-model="newtask" v-on:keyup.enter="add">
+            <ul>
+                <li v-for="(item, index) in items">
+                    <span v-if="item.completed"><del>{{ item.task }}</del></span>
+                    <span v-else><a v-on:click="click(index)">{{ item.task }}</a></span>
+                </li>
+            </ul>
+        </div>
+    </body>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                newtask: '',
+                items: [
+                    {task: "doing", completed: false},
+                    {task: "completed", completed: true}
+                ]
+            },
+            methods: {
+                add: function (event) {
+                    this.items.push({task: event.target.value, completed: false})
+                    event.target.value = ''
+                },
+                click: function (index) {
+                    console.log("clicked:" + index)
+                    var updateValue = this.items[index]
+                    updateValue.completed = true
+                    Vue.set(this.items, index, updateValue)
+                }
+            }
+        })
+    </script>
+</html>
