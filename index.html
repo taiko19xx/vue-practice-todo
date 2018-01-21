@@ -8,9 +8,8 @@
         <div id="app">
             <input v-model="newtask" v-on:keyup.enter="add">
             <ul>
-                <li v-for="(item, index) in items">
-                    <span v-if="item.completed"><del>{{ item.task }}</del></span>
-                    <span v-else><a v-on:click="click(index)">{{ item.task }}</a></span>
+                <li v-for="item in items">
+                    <todo-parts :item=item></todo-parts>
                 </li>
             </ul>
         </div>
@@ -27,14 +26,19 @@
             },
             methods: {
                 add: function (event) {
-                    this.items.push({task: event.target.value, completed: false})
-                    event.target.value = ''
-                },
-                click: function (index) {
-                    console.log("clicked:" + index)
-                    var updateValue = this.items[index]
-                    updateValue.completed = true
-                    Vue.set(this.items, index, updateValue)
+                    this.items.push({task: this.newtask, completed: false})
+                    this.newtask = ''
+                }
+            },
+            components: {
+                'todo-parts': {
+                    props: ['item'],
+                    template: '<span v-if="item.completed"><a v-on:click="click"><del>{{ item.task }}</del></a></span><span v-else><a v-on:click="click">{{ item.task }}</a></span>',
+                    methods: {
+                        click: function () {
+                            this.item.completed = !this.item.completed
+                        }
+                    }
                 }
             }
         })
