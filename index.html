@@ -1,46 +1,12 @@
-<html>
-    <head>
-        <title>Vue.js Practice - ToDo Application</title>
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    </head>
-    <body>
-        <h1>Todo</h1>
-        <div id="app">
-            <input v-model="newtask" v-on:keyup.enter="add">
-            <ul>
-                <li v-for="item in items">
-                    <todo-parts :item=item></todo-parts>
-                </li>
-            </ul>
-        </div>
-    </body>
-    <script>
-        var app = new Vue({
-            el: "#app",
-            data: {
-                newtask: '',
-                items: [
-                    {task: "doing", completed: false},
-                    {task: "completed", completed: true}
-                ]
-            },
-            methods: {
-                add: function (event) {
-                    this.items.push({task: this.newtask, completed: false})
-                    this.newtask = ''
-                }
-            },
-            components: {
-                'todo-parts': {
-                    props: ['item'],
-                    template: '<span v-if="item.completed"><a v-on:click="click"><del>{{ item.task }}</del></a></span><span v-else><a v-on:click="click">{{ item.task }}</a></span>',
-                    methods: {
-                        click: function () {
-                            this.item.completed = !this.item.completed
-                        }
-                    }
-                }
-            }
-        })
-    </script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js Practice - ToDo Application</title>
+  </head>
+  <body>
+    <h1>Todo</h1>
+    <div id="app"></div>
+  </body>
+  <script src="/dist/build.js"></script>
 </html>
