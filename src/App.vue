@@ -1,12 +1,13 @@
 <template>
     <div id="app">
-      <input v-model="newtask" v-on:keyup.enter="add">
-      <ul>
-        <li v-for="(item, index) in items">
-          <span v-if="item.completed"><a v-on:click="click(index)"><del>{{ item.task }}</del></a></span>
-          <span v-else><a v-on:click="click(index)">{{ item.task }}</a></span>
-        </li>
-      </ul>
+      <b-container>
+        <h1>Todo</h1>
+        <b-form-input v-model="newtask" v-on:keyup.enter.native="add"></b-form-input>
+        <b-list-group v-for="(item, index) in items">
+          <b-list-group-item v-if="item.completed"><a v-on:click="click(index)"><del>{{ item.task }}</del></a></b-list-group-item>
+          <b-list-group-item v-else><a v-on:click="click(index)">{{ item.task }}</a></b-list-group-item>
+        </b-list-group>
+      </b-container>
     </div>
 </template>
 
