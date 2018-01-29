@@ -1,12 +1,18 @@
 <template>
     <div id="app">
       <b-container>
-        <h1>Todo</h1>
-        <b-form-input v-model="newtask" v-on:keyup.enter.native="add"></b-form-input>
-        <b-list-group v-for="(item, index) in items">
-          <b-list-group-item v-if="item.completed"><a v-on:click="click(index)"><del>{{ item.task }}</del></a></b-list-group-item>
-          <b-list-group-item v-else><a v-on:click="click(index)">{{ item.task }}</a></b-list-group-item>
-        </b-list-group>
+        <header class="mt-2 mb-2">
+          <h1>Todo</h1>
+        </header>
+        <div class="mb-2">
+          <b-form-input class="w-25" v-model="newtask" v-on:keyup.enter.native="add"></b-form-input>
+        </div>
+        <div>
+          <b-list-group class="w-25" v-for="(item, index) in items" :key="item.task">
+            <a v-on:click="click(index)" v-if="item.completed"><b-list-group-item><del>{{ item.task }}</del></b-list-group-item></a>
+            <a v-on:click="click(index)" v-else><b-list-group-item>{{ item.task }}</b-list-group-item></a>
+          </b-list-group>
+        </div>
       </b-container>
     </div>
 </template>
